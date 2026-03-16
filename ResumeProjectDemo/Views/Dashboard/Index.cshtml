@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    @* Toplam Proje *@
+    <div class="p-6 bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#283539] shadow-sm">
+        <div class="flex justify-between items-center">
+            <div>
+                <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Projeler</p>
+                @await Component.InvokeAsync("TotalProjectCount")
+            </div>
+            <div class="p-3 bg-blue-500/10 rounded-lg">
+                <span class="material-symbols-outlined text-blue-500">inventory_2</span>
+            </div>
+        </div>
+    </div>
+
+    @* Toplam Yetenek *@
+    <div class="p-6 bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#283539] shadow-sm">
+        <div class="flex justify-between items-center">
+            <div>
+                <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Yetenekler</p>
+                @await Component.InvokeAsync("TotalSkillCount")
+            </div>
+            <div class="p-3 bg-amber-500/10 rounded-lg">
+                <span class="material-symbols-outlined text-amber-500">star</span>
+            </div>
+        </div>
+    </div>
+
+    @* Toplam Hizmet *@
+    <div class="p-6 bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#283539] shadow-sm">
+        <div class="flex justify-between items-center">
+            <div>
+                <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Hizmetler</p>
+                @await Component.InvokeAsync("TotalServiceCount")
+            </div>
+            <div class="p-3 bg-emerald-500/10 rounded-lg">
+                <span class="material-symbols-outlined text-emerald-500">design_services</span>
+            </div>
+        </div>
+    </div>
+
+    @* Yeni Mesaj (Okunmamış) *@
+    <div class="p-6 bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#283539] shadow-sm">
+        <div class="flex justify-between items-center">
+            <div>
+                <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Yeni Mesaj</p>
+                @await Component.InvokeAsync("NewMessageCount")
+            </div>
+            <div class="p-3 bg-rose-500/10 rounded-lg">
+                <span class="material-symbols-outlined text-rose-500">mail</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+
+    @* Son Mesajlar Tablosu *@
+    <div class="lg:col-span-2 p-6 bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#283539]">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="font-bold text-lg">Son Mesajlar</h3>
+            <a href="/Admin/Message/Index" class="text-sm text-primary hover:underline">Tümünü Gör</a>
+        </div>
+        <div class="overflow-x-auto">
+            @* Bileşen isminin .cs dosyasındaki class ismiyle aynı olduğundan emin ol *@
+            @await Component.InvokeAsync("DashboardLastMessagesTable")
+        </div>
+    </div>
+
+    @* Mesaj İstatistik Detayı *@
+    <div class="p-6 bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#283539]">
+        <h3 class="font-bold text-lg mb-6">Mesaj İstatistikleri</h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center p-3 bg-slate-50 dark:bg-white/5 rounded-lg">
+                <span class="text-sm">Okunmuş Mesajlar</span>
+                <span class="font-bold text-emerald-500">@await Component.InvokeAsync("ReadMessageCount")</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-slate-50 dark:bg-white/5 rounded-lg">
+                <span class="text-sm">Okunmamış Mesajlar</span>
+                <span class="font-bold text-rose-500">@await Component.InvokeAsync("NewMessageCount")</span>
+            </div>
+
+            <div class="mt-6 border-t border-slate-200 dark:border-slate-700 pt-4 text-center">
+                <p class="text-sm text-slate-500">Hoş Geldin, Furkan!</p>
+                <p class="text-xs text-slate-400 mt-1">Sistem şu an aktif ve tüm veriler güncel.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+

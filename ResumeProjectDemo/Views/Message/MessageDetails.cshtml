@@ -1,0 +1,54 @@
+﻿@model ResumeProjectDemo.Entities.Message
+@{
+    ViewData["Title"] = "MessageDetails";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div style="display:flex; justify-content:center; align-items:center; min-height:80vh; padding:2rem;">
+    <div class="card p-4" style="background-color:#1a2332; color:white; max-width:600px; width:100%; border-radius:16px; box-shadow:0 0 20px rgba(0,0,0,0.5);">
+        
+        <h3 class="mb-4 text-center" style="font-weight:700; color:#00d9ff;">Mesaj Detayı</h3>
+
+        <div class="mb-3">
+            <strong>Gönderen:</strong> @Model.NameSurname
+        </div>
+        <div class="mb-3">
+            <strong>E-posta:</strong> <a href="mailto:@Model.Email" style="color:#00d9ff">@Model.Email</a>
+        </div>
+        <div class="mb-3">
+            <strong>Konu:</strong> @Model.Subject
+        </div>
+        <div class="mb-3">
+            <strong>Mesaj:</strong>
+            <p style="white-space:pre-line;">@Model.MessageDetail</p>
+        </div>
+        <div class="mb-4">
+            <strong>Tarih:</strong> @Model.SendDate.ToString("dd MMM yyyy HH:mm")
+        </div>
+
+        <div class="text-center">
+            <form method="get" action="@Url.Action("MessageList", "Message")">
+                <button type="submit" class="btn-back">Geri</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .btn-back {
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        background-color: #00d9ff;
+        color: #1a2332;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-back:hover {
+        background-color: #00b8e0;
+        color: white;
+    }
+</style>

@@ -1,0 +1,47 @@
+﻿@model List<ResumeProjectDemo.Entities.Skill>
+
+<section id="skills">
+    <div class="container">
+        <div class="row mb-8">
+            <div class="col-lg-10 col-xl-8 mx-lg-auto text-center">
+                <div class="section-title h2 mb-3">
+                    <h2 class="mb-0">Yeteneklerim & Teknolojiler</h2>
+                    <span class="title-letter">Y</span>
+                </div>
+                <p>
+                    Frontend tarafında HTML, CSS, JavaScript ve modern framework’lerle kullanıcı odaklı arayüzler geliştiriyorum. Backend tarafında RESTful API’ler,
+                    veritabanı yönetimi ve sunucu tarafı mimariler üzerinde çalışıyorum. Git ile versiyon kontrolü sağlıyor, performans ve güvenlik odaklı çözümler üretiyorum.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            @{
+                var leftColumn = Model.Take((int)Math.Ceiling(Model.Count / 2.0)).ToList();
+                var rightColumn = Model.Skip((int)Math.Ceiling(Model.Count / 2.0)).ToList();
+            }
+
+            <div class="col-md-6 mb-4 mb-md-0">
+                @foreach (var skill in leftColumn)
+                {
+                    <p class="h6 mb-1 font-bold">@skill.Title</p>
+                    <div class="progress mb-1 rounded-0" style="height:5px">
+                        <div class="progress-bar" role="progressbar" style="width: @skill.PercentValue%" aria-valuenow="@skill.PercentValue" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small class="text-slate-500 dark:text-[#9db2b9] mb-4 d-block">@skill.Description</small>
+                }
+            </div>
+
+            <div class="col-md-6">
+                @foreach (var skill in rightColumn)
+                {
+                    <p class="h6 mb-1 font-bold">@skill.Title</p>
+                    <div class="progress mb-1 rounded-0" style="height:5px">
+                        <div class="progress-bar" role="progressbar" style="width: @skill.PercentValue%" aria-valuenow="@skill.PercentValue" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small class="text-slate-500 dark:text-[#9db2b9] mb-4 d-block">@skill.Description</small>
+                }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,34 @@
+﻿@model List<ResumeProjectDemo.Entities.Message>
+
+<div class="absolute right-0 mt-2 w-80 bg-white dark:bg-[#1c2427] rounded-lg shadow-lg border border-slate-200 dark:border-[#283539] z-50">
+
+    <div class="p-3 border-b border-slate-200 dark:border-[#283539] font-semibold text-sm">
+        Okunmamış Mesajlar
+    </div>
+
+    <div class="max-h-80 overflow-y-auto">
+
+        @foreach (var msg in Model)
+        {
+            <a href="/Message/MessageDetails/@msg.MessageId"
+                   class="block px-4 py-3 hover:bg-slate-100 dark:hover:bg-[#283539] border-b border-slate-100 dark:border-[#283539]">
+
+                <div class="text-xs font-semibold">
+                    @msg.NameSurname
+                </div>
+
+                <div class="text-xs text-gray-500 truncate">
+                    @msg.Subject
+                </div>
+
+            </a>
+        }
+
+    </div>
+
+    <a href="/Message/MessageList"
+           class="block text-center text-xs text-primary py-2 hover:bg-slate-100 dark:hover:bg-[#283539]">
+        Tüm Mesajları Gör
+    </a>
+
+</div>

@@ -1,0 +1,71 @@
+﻿@model ResumeProjectDemo.Entities.Contact
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-lg-auto">
+
+                <!-- Başlık -->
+                <div class="row mb-8 text-center">
+                    <div class="col-lg-8 mx-lg-auto">
+                        <div class="section-title h2 mb-3">
+                            <h2 class="mb-0">Bana Yazın</h2>
+                            <span class="title-letter">B</span>
+                        </div>
+                        <p>@Model?.Description</p>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="row mb-8">
+                    <div class="col-md-4">
+                        <div class="feature-block text-center">
+                            <div class="feature-icon text-primary mb-4"><i class="ti-mobile"></i></div>
+                            <p>@Model?.Phone</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-block text-center">
+                            <div class="feature-icon text-primary mb-4"><i class="ti-location-pin"></i></div>
+                            <p>@Model?.Address</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-block text-center">
+                            <div class="feature-icon text-primary mb-4"><i class="ti-email"></i></div>
+                            <p><a href="mailto:@Model?.Email">@Model?.Email</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bildirim -->
+                <div id="messageAlert" class="text-center mb-3" style="display:none;"></div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <form id="contactForm" method="post" action="@Url.Action("SendMessage", "Message")" class="mb-0">
+                        @Html.AntiForgeryToken()
+                        <div class="form-row">
+                            <div class="col-12 col-md-6">
+                                <input type="text" name="NameSurname" placeholder="Adınız Soyadınız" class="form-control required" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <input type="email" name="Email" placeholder="E-posta Adresiniz" class="form-control required" required>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" name="Subject" placeholder="Konu" class="form-control" required>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <textarea name="MessageDetail" placeholder="Mesajınız..." class="form-control required" rows="7" required></textarea>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn btn-primary" id="submitBtn" type="button">Mesaj Gönder</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

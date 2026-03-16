@@ -1,0 +1,138 @@
+﻿@model List<ResumeProjectDemo.Entities.Portfolio>
+@{
+    ViewData["Title"] = "PortfolioList";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    var categories = ViewBag.Categories as List<ResumeProjectDemo.Entities.Category>;
+}
+
+<div class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        <!-- Sayfa Başlığı + Butonlar -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h3 class="text-3xl font-black tracking-tight">Portfolio Listesi</h3>
+                <p class="text-slate-500 dark:text-[#9db2b9] mt-1">
+                    Yaptığınız projeleri ve kategorilerini buradan yönetebilirsiniz.
+                </p>
+            </div>
+
+            <div class="flex gap-2">
+                <a href="/Portfolio/CreatePortfolio/"
+                       class="flex items-center gap-2 px-5 py-2.5 bg-primary text-background-dark rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    Yeni Proje
+                </a>
+
+                <a href="/Category/CreateCategory/"
+                       class="flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-background-dark rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    Yeni Kategori
+                </a>
+
+                <a href="/Category/CategoryList/"
+                       class="flex items-center gap-2 px-5 py-2.5 bg-yellow-500 text-background-dark rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+                    Kategorileri Yönet
+                </a>
+            </div>
+        </div>
+
+        <!-- Kategori Tablosu -->
+        <div class="bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#3b4d54] overflow-hidden shadow-sm mt-8">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 dark:bg-[#1c2427] border-b border-slate-200 dark:border-[#3b4d54]">
+                            <th class="px-6 py-4 text-xs font-bold uppercase">#</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase">Kategori Adı</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase text-right">Güncelle</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase text-right">Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 dark:divide-[#3b4d54]">
+                        @if (ViewBag.Categories != null)
+                        {
+                            int counter = 1;
+                            foreach (var cat in ViewBag.Categories)
+                            {
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-white/5">
+                                    <td class="px-6 py-5 font-semibold text-sm">@counter</td>
+                                    <td class="px-6 py-5 text-sm font-semibold">@cat.CategoryName</td>
+                                    <td class="px-6 py-5 text-right">
+                                        <a href="/Category/UpdateCategory/@cat.CategoryId"
+                                               class="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs">
+                                            Güncelle
+                                        </a>
+                                    </td>
+                                    <td class="px-6 py-5 text-right">
+                                        <a href="/Category/DeleteCategory/@cat.CategoryId"
+                                               class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs">
+                                            Sil
+                                        </a>
+                                    </td>
+                                </tr>
+                                counter++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="px-6 py-5 text-sm text-slate-500 text-center">
+                                    Henüz kategori yok.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Portfolio Tablosu -->
+        <div class="bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#3b4d54] overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 dark:bg-[#1c2427] border-b border-slate-200 dark:border-[#3b4d54]">
+                            <th class="px-6 py-4 text-xs font-bold uppercase">#</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase">Görsel</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase">Başlık</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase">Kategori</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase text-right">Sil</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase text-right">Güncelle</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 dark:divide-[#3b4d54]">
+                        @foreach (var item in Model)
+                        {
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-white/5">
+                                <td class="px-6 py-5 font-semibold text-sm">@item.PortfolioId</td>
+                                <td class="px-6 py-5">
+                                    <img src="@item.ImageUrl" class="w-14 h-14 object-cover rounded-lg border" />
+                                </td>
+                                <td class="px-6 py-5 text-sm font-semibold">@item.Title</td>
+                                <td class="px-6 py-5 text-sm">@item.Category?.CategoryName ?? "Kategori Yok"</td>
+                                <td class="px-6 py-5 text-right">
+                                    <a href="/Portfolio/DeletePortfolio/@item.PortfolioId"
+                                       class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs">Sil</a>
+                                </td>
+                                <td class="px-6 py-5 text-right">
+                                    <a href="/Portfolio/UpdatePortfolio/@item.PortfolioId"
+                                       class="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs">Güncelle</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Alt Bilgi -->
+            <div class="px-6 py-4 bg-slate-50/30 dark:bg-[#1c2427]/30 border-t border-slate-200 dark:border-[#3b4d54]">
+                <p class="text-xs text-slate-500">
+                    Toplam @Model.Count Proje Bulunmaktadır.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>

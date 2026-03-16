@@ -1,0 +1,116 @@
+﻿@model List<ResumeProjectDemo.Entities.Message>
+@{
+    ViewData["Title"] = "MessageList";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+        <!-- Page Heading -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h3 class="text-3xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-700">
+                    Mesaj Listesi
+                </h3>
+                <p class="text-slate-500 dark:text-[#9db2b9] mt-1">
+                    Mesajlarınızı görüntüleyebilir veya silebilirsiniz.
+                </p>
+            </div>
+            <a href="@Url.Action("Create", "Messages")" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-400 to-purple-700 text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                Yeni Mesaj
+            </a>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-[#1a2332] rounded-xl p-4 text-white border border-white/10">
+                <div class="text-sm text-slate-400">Toplam</div>
+                <div class="text-2xl font-bold mt-1">@Model.Count()</div>
+            </div>
+            <div class="bg-[#1a2332] rounded-xl p-4 text-white border border-white/10">
+                <div class="text-sm text-slate-400">Okunmamış</div>
+                <div class="text-2xl font-bold mt-1">@Model.Count(m => !m.IsRead)</div>
+            </div>
+            <div class="bg-[#1a2332] rounded-xl p-4 text-white border border-white/10">
+                <div class="text-sm text-slate-400">Okunmuş</div>
+                <div class="text-2xl font-bold mt-1">@Model.Count(m => m.IsRead)</div>
+            </div>
+            <div class="bg-[#1a2332] rounded-xl p-4 text-white border border-white/10">
+                <div class="text-sm text-slate-400">Bu Ay</div>
+                <div class="text-2xl font-bold mt-1">@Model.Count(m => m.SendDate.Month == DateTime.Now.Month && m.SendDate.Year == DateTime.Now.Year)</div>
+            </div>
+        </div>
+
+        <!-- Messages Table -->
+        <div class="bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#3b4d54] overflow-hidden shadow-sm mt-4">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 dark:bg-[#1c2427] border-b border-slate-200 dark:border-[#3b4d54]">
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">#</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Gönderen</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Konu & Mesaj</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Durum</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Tarih</th>
+                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9] text-right">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 dark:divide-[#3b4d54]">
+                        @foreach (var msg in Model.OrderByDescending(m => m.SendDate))
+                        {
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors group">
+                                <td class="px-6 py-5 font-semibold text-sm">#@msg.MessageId</td>
+                                <td class="px-6 py-5">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-400 to-purple-700 flex items-center justify-center font-bold text-white">
+                                            @msg.NameSurname.Substring(0, 1).ToUpper()
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-slate-800 dark:text-slate-200">@msg.NameSurname</div>
+                                            <div class="text-xs text-slate-500 dark:text-[#9db2b9]">@msg.Email</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <div class="font-semibold text-sm text-slate-800 dark:text-slate-200">@msg.Subject</div>
+                                    <div class="text-xs text-slate-500 dark:text-[#9db2b9]">
+                                        @(msg.MessageDetail.Length > 50 ? msg.MessageDetail.Substring(0, 50) + "..." : msg.MessageDetail)
+                                    </div>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <span class="px-2 py-1 rounded-lg text-xs font-semibold @(msg.IsRead ? "bg-slate-200 text-slate-700 dark:bg-[#2c3a3f] dark:text-[#9db2b9]" : "bg-cyan-100 text-cyan-600 dark:bg-cyan-900 dark:text-cyan-400")">
+                                        @(msg.IsRead ? "Okundu" : "Okunmadı")
+                                    </span>
+                                </td>
+                                <td class="px-6 py-5">
+                                    <div class="text-xs text-slate-500 dark:text-[#9db2b9]">@msg.SendDate.ToString("dd MMM yyyy")</div>
+                                    <div class="text-xs text-slate-500 dark:text-[#9db2b9]">@msg.SendDate.ToString("HH:mm")</div>
+                                </td>
+                                <td class="px-6 py-5 text-right flex gap-2 justify-end">
+                                    <a href="@Url.Action("MessageDetails", "Message", new { id = msg.MessageId })" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium text-xs transition-colors">
+                                        <span class="material-symbols-outlined text-[16px]">visibility</span>
+                                        Görüntüle
+                                    </a>
+                                    <a href="@Url.Action("DeleteMessage", "Message", new { id = msg.MessageId })"
+                                           onclick="return confirm('Silmek istediğinizden emin misiniz?')"
+                                           class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium text-xs transition-colors">
+                                        <span class="material-symbols-outlined text-[16px]">delete</span>
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="px-6 py-4 bg-slate-50/30 dark:bg-[#1c2427]/30 border-t border-slate-200 dark:border-[#3b4d54] flex items-center justify-between">
+                <p class="text-xs text-slate-500 dark:text-[#9db2b9]">Toplam @Model.Count Mesaj Bulunmaktadır.</p>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 rounded border border-slate-200 dark:border-[#283539] text-xs font-bold disabled:opacity-50" disabled>Önceki</button>
+                    <button class="px-3 py-1 rounded border border-slate-200 dark:border-[#283539] text-xs font-bold hover:bg-slate-100 dark:hover:bg-[#283539]">Sonraki</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

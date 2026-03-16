@@ -1,0 +1,77 @@
+﻿@model ResumeProjectDemo.Dtos.AboutModel
+
+<section id="about">
+    <div class="container">
+        <div class="section-title h2 text-center mb-8">
+            <h2 class="mb-0">Hakkımda</h2>
+            <span class="title-letter">H</span>
+        </div>
+
+        @if (Model?.About == null)
+        {
+            <div class="alert alert-warning">
+                Hakkımda bilgisi eklenmemiş.
+            </div>
+        }
+        else
+        {
+            <div class="row">
+
+                <div class="col-md-6 col-lg-4 d-none d-lg-block">
+                    <img class="img-fluid w-100 rounded" src="~/@Model.About.ImageUrl" alt="">
+                </div>
+
+                <div class="col-lg-8">
+                    <h3>@Model.About?.NameSurname</h3>
+                    <p class="lead">@Model.About.Title</p>
+                    <p class="mb-5">@Model.About.Description</p>
+
+                    <div class="row mb-8">
+
+                        <div class="col-md-6 mb-5 mb-md-0">
+                            <h4 class="mb-4">Eğitim</h4>
+                            @if (Model.Educations != null && Model.Educations.Any())
+                            {
+                                foreach (var item in Model.Educations)
+                                {
+                                    <p class="h5">@item.Title</p>
+                                    <p>@item.Description</p>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">Eğitim bilgisi eklenmemiş.</p>
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <h4 class="mb-4">Deneyimlerim</h4>
+                            @if (Model.Experiences != null && Model.Experiences.Any())
+                            {
+                                foreach (var item in Model.Experiences)
+                                {
+                                    <p class="h5">@item.Title</p>
+                                    <p>@item.Description</p>
+                                    <p>@item.WorkDate</p>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">Deneyim bilgisi eklenmemiş.</p>
+                            }
+                        </div>
+
+                    </div>
+
+                        <a href="/Cv/Cv.pdf" class="btn btn-primary" download="Furkan_Zihni_CV.pdf">CV'mi İndirin</a>
+                    <a href="#contact" class="btn btn-light scrollto">Send Message</a>
+
+                </div>
+
+            </div>
+        }
+    </div>
+</section>
+@*Full Stack Developer olarak modern web uygulamaları geliştiriyorum. Frontend ve backend tarafında ölçeklenebilir,
+
+performanslı ve kullanıcı odaklı çözümler üretmeye odaklanıyorum. Temiz kod, sürdürülebilir mimari ve sürekli öğrenme benim için öncelik.*@

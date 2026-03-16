@@ -1,0 +1,69 @@
+﻿@model ResumeProjectDemo.Entities.Skill
+@{
+    ViewData["Title"] = "UpdateSkill";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+
+<div class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-3xl mx-auto space-y-8">
+
+        <!-- Page Heading -->
+        <div>
+            <h3 class="text-3xl font-black tracking-tight">Yetenek Güncelle</h3>
+            <p class="text-slate-500 dark:text-[#9db2b9] mt-1">
+                Yetenek bilgilerini güncelleyebilirsiniz.
+            </p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#3b4d54] p-8 shadow-sm">
+
+            <form method="post">
+
+                <input type="hidden" asp-for="SkillId" />
+
+                <!-- Skill Title -->
+                <div class="mb-6">
+                    <label class="block text-sm font-bold mb-2">Yetenek Adı</label>
+                    <input type="text" asp-for="Title"
+                           class="w-full rounded-lg border border-slate-300 dark:border-[#3b4d54] px-4 py-2 bg-white dark:bg-[#1c2427] focus:outline-none focus:ring-2 focus:ring-primary" />
+                </div>
+
+                <!-- Description -->
+                <div class="mb-6">
+                    <label class="block text-sm font-bold mb-2">Açıklama</label>
+                    <textarea asp-for="Description"
+                              class="w-full rounded-lg border border-slate-300 dark:border-[#3b4d54] px-4 py-2 bg-white dark:bg-[#1c2427] focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                </div>
+
+                <!-- Percent -->
+                <div class="mb-6">
+                    <label class="block text-sm font-bold mb-2">Yetenek Seviyesi (%)</label>
+                    <input type="number" asp-for="PercentValue"
+                           class="w-full rounded-lg border border-slate-300 dark:border-[#3b4d54] px-4 py-2 bg-white dark:bg-[#1c2427] focus:outline-none focus:ring-2 focus:ring-primary" />
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-3">
+
+                    <button type="submit"
+                            class="px-5 py-2.5 bg-green-500 text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                        Güncelle
+                    </button>
+
+                    <a href="/Skill/SkillList/"
+                       class="px-5 py-2.5 bg-slate-200 dark:bg-[#283539] rounded-lg font-bold text-sm">
+                        Vazgeç
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+

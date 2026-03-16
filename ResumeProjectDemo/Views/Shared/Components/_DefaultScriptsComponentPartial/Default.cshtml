@@ -1,0 +1,81 @@
+﻿<script src="/templates/assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/templates/assets/vendor/popper.js/dist/popper.min.js"></script>
+<script src="/templates/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/templates/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="/templates/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/templates/assets/vendor/jquery-form/dist/jquery.form.min.js"></script>
+<script src="/templates/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/templates/assets/vendor/isotope/dist/isotope.pkgd.min.js"></script>
+<script src="/templates/assets/vendor/featherlight/jquery.detect_swipe.js"></script>
+<script src="/templates/assets/vendor/featherlight/featherlight.min.js"></script>
+<script src="/templates/assets/vendor/featherlight/featherlight.gallery.min.js"></script>
+<script src="/templates/assets/vendor/slick/slick.min.js"></script>
+<script src="/templates/assets/vendor/vegas/vegas.min.js"></script>
+<script src="/templates/assets/vendor/typed.js/typed.min.js"></script>
+<script src="/templates/assets/vendor/granim.js/dist/granim.min.js"></script>
+
+<!-- Theme JS -->
+<script src="/templates/assets/js/main.js"></script>
+<script>
+    $(function () {
+
+    $('#vegas-slider-target').vegas({
+    slides: [
+    { src: "/images/images1.jpg" },
+    { src: "/images/images2.jpg" },
+    { src: "/images/images3.jpg" },
+    { src: "/images/images4.jpg" }
+    ],
+
+    delay: 5000,
+    transition: "fade",
+    animation: "kenburns",
+    timer: false,
+    loop: true
+    });
+
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("contactForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    submitBtn.addEventListener("click", function(e) {
+    e.preventDefault(); // ekstra güvenlik
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+    method: "POST",
+    body: formData
+    })
+    .then(response => {
+    if (response.ok) return response.text();
+    throw new Error("Mesaj gönderilirken hata oluştu.");
+    })
+    .then(data => {
+    Swal.fire({
+    icon: 'success',
+    title: 'Mesajınız gönderildi!',
+    text: 'En kısa sürede dönüş yapacağız.',
+    confirmButtonText: 'Tamam',
+    allowOutsideClick: false
+    }).then(() => {
+    window.location.href = "@Url.Action("Index", "Default")";
+    });
+    })
+    .catch(error => {
+    Swal.fire({
+    icon: 'error',
+    title: 'Hata!',
+    text: error.message,
+    confirmButtonText: 'Tamam'
+    });
+    });
+    });
+    });
+</script>

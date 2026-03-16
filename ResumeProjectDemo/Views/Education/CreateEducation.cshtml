@@ -1,0 +1,56 @@
+﻿@model ResumeProjectDemo.Entities.Education
+@{
+    ViewData["Title"] = "CreateEducation";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-3xl mx-auto space-y-8">
+
+        <!-- Page Heading -->
+        <div>
+            <h3 class="text-3xl font-black tracking-tight">Yeni Eğitim Ekle</h3>
+            <p class="text-slate-500 dark:text-[#9db2b9] mt-1">
+                Yeni bir eğitim bilgisi ekleyebilirsiniz.
+            </p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#3b4d54] p-8 shadow-sm">
+
+            <form method="post">
+
+                <!-- Education Title -->
+                <div class="mb-6">
+                    <label class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" asp-for="Title"
+                           class="w-full rounded-lg border border-slate-300 dark:border-[#3b4d54] px-4 py-2 bg-white dark:bg-[#1c2427] focus:outline-none focus:ring-2 focus:ring-primary" />
+                </div>
+
+                <!-- Description -->
+                <div class="mb-6">
+                    <label class="block text-sm font-bold mb-2">Açıklama</label>
+                    <textarea asp-for="Description"
+                              class="w-full rounded-lg border border-slate-300 dark:border-[#3b4d54] px-4 py-2 bg-white dark:bg-[#1c2427] focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-3">
+                    <button type="submit"
+                            class="px-5 py-2.5 bg-primary text-background-dark rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                        Kaydet
+                    </button>
+
+                    <a href="/About/AboutList/"
+                           class="px-5 py-2.5 bg-slate-200 dark:bg-[#283539] rounded-lg font-bold text-sm">
+                        Vazgeç
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,132 @@
+﻿@model ResumeProjectDemo.Dtos.AboutModel
+@{
+    ViewData["Title"] = "AboutList";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        <!-- Sayfa Başlığı -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h3 class="text-3xl font-black tracking-tight">Hakkımda Listesi</h3>
+                <p class="text-slate-500 dark:text-[#9db2b9] mt-1">Hakkımda içeriklerinizi düzenleyebilirsiniz</p>
+            </div>
+
+            @if (Model.About == null)
+            {
+                <a href="/About/CreateAbout/"
+                       class="flex items-center gap-2 px-5 py-2.5 bg-primary text-background-dark rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    Yeni Hakkımda Girişi
+                </a>
+            }
+        </div>
+
+        <!-- Hakkımda Tablosu -->
+        <div class="bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#3b4d54] overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+                @if (Model.About != null)
+                {
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-[#1c2427] border-b border-slate-200 dark:border-[#3b4d54]">
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">#</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Ad-Soyad</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Başlık</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Açıklama</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Image Url</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9] text-right">Sil</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9] text-right">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 dark:divide-[#3b4d54]">
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors group">
+                                <td class="px-6 py-5 font-semibold text-sm">@Model.About.AboutId</td>
+                                <td class="px-6 py-5 font-semibold text-sm">@Model.About.NameSurname</td>
+                                <td class="px-6 py-5 font-semibold text-sm">@Model.About.Title</td>
+                                <td class="px-6 py-5 font-semibold text-sm">@Model.About.Description</td>
+                                <td class="px-6 py-5 font-semibold text-sm">@Model.About.ImageUrl</td>
+                                <td class="px-6 py-5 text-right">
+                                    <a href="/About/DeleteAbout/@Model.About.AboutId" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium text-xs transition-colors">
+                                        <span class="material-symbols-outlined text-[16px]">delete</span>
+                                        Sil
+                                    </a>
+                                </td>
+                                <td class="px-6 py-5 text-right">
+                                    <a href="/About/UpdateAbout/@Model.About.AboutId" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium text-xs transition-colors">
+                                        <span class="material-symbols-outlined text-[16px]">edit</span>
+                                        Güncelle
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="p-6 text-center text-slate-500 dark:text-[#9db2b9]">
+                        Henüz bir “Hakkımda” kaydı eklenmemiş.
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Eğitim Tablosu -->
+        <div class="bg-white dark:bg-[#111618] rounded-xl border border-slate-200 dark:border-[#3b4d54] overflow-hidden shadow-sm mt-8">
+            <div class="overflow-x-auto p-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="text-xl font-bold text-slate-700 dark:text-[#9db2b9]">Eğitim Bilgileri</h4>
+                    <a href="/Education/CreateEducation" class="px-4 py-2 bg-primary text-background-dark rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                        Yeni Eğitim Ekle
+                    </a>
+                </div>
+
+                @if (Model.Educations != null && Model.Educations.Any())
+                {
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-[#1c2427] border-b border-slate-200 dark:border-[#3b4d54]">
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">#</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Başlık</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9]">Açıklama</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9] text-right">Sil</th>
+                                <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-[#9db2b9] text-right">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 dark:divide-[#3b4d54]">
+                            @foreach (var edu in Model.Educations)
+                            {
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-white/5 transition-colors group">
+                                    <td class="px-6 py-5 font-semibold text-sm">@edu.EducationId</td>
+                                    <td class="px-6 py-5 font-semibold text-sm">@edu.Title</td>
+                                    <td class="px-6 py-5 font-semibold text-sm">@edu.Description</td>
+                                    <td class="px-6 py-5 text-right">
+                                        <a href="/Education/DeleteEducation/@edu.EducationId"
+                                               class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium text-xs transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">delete</span>
+                                            Sil
+                                        </a>
+                                    </td>
+                                    <td class="px-6 py-5 text-right">
+                                        <a href="/Education/UpdateEducation/@edu.EducationId" class="px-4 py-2 bg-green-500 text-white rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+                                            Güncelle
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="p-6 text-center text-slate-500 dark:text-[#9db2b9]">
+                        Henüz bir eğitim kaydı eklenmemiş.
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

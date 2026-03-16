@@ -1,0 +1,34 @@
+﻿@model ResumeProjectDemo.Entities.Category
+@{
+    ViewData["Title"] = "Kategori Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="flex-1 overflow-y-auto p-8">
+    <div class="max-w-xl mx-auto space-y-6">
+
+        <h2 class="text-xl font-bold mb-4">Kategori Güncelle</h2>
+
+        <form asp-action="UpdateCategory" method="post">
+            <input type="hidden" asp-for="CategoryId" /> <!-- Güncelleme için gizli id -->
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-1">Kategori Adı</label>
+                <input asp-for="CategoryName" class="w-full border rounded px-3 py-2" />
+                <span asp-validation-for="CategoryName" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="flex justify-end space-x-2">
+                <a href="@Url.Action("PortfolioList", "Portfolio")"
+                       class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm">
+                    Geri
+                </a>
+                <button type="submit"
+                        class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm">
+                    Güncelle
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>

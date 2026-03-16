@@ -1,0 +1,32 @@
+﻿@model List<ResumeProjectDemo.Entities.Message>
+
+<table class="w-full text-left border-collapse">
+    <thead>
+        <tr class="text-slate-400 text-sm uppercase tracking-wider border-b border-slate-200 dark:border-[#283539]">
+            <th class="pb-3">Gönderen</th>
+            <th class="pb-3">Konu</th>
+            <th class="pb-3">Tarih</th>
+            <th class="pb-3 text-right">Durum</th>
+        </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-100 dark:divide-[#283539]">
+        @foreach (var item in Model)
+        {
+            <tr class="text-sm">
+                <td class="py-4 font-medium">@item.NameSurname</td>
+                <td class="py-4 text-slate-500">@item.Subject</td>
+                <td class="py-4 text-slate-400">@item.SendDate.ToShortDateString()</td>
+                <td class="py-4 text-right">
+                    @if (item.IsRead)
+                    {
+                        <span class="px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded text-xs">Okundu</span>
+                    }
+                    else
+                    {
+                        <span class="px-2 py-1 bg-rose-500/10 text-rose-500 rounded text-xs">Yeni</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
